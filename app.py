@@ -1,7 +1,7 @@
 from flask import Flask, request, send_file, jsonify
-from flask_cors import CORS
 from pytube import YouTube
 from io import BytesIO
+from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
@@ -27,8 +27,14 @@ def download_video():
         video_stream.stream_to_buffer(video_data)
         video_data.seek(0)
 
-        # Return the video content as a file download
-        return send_file(video_data, as_attachment=True, download_name=f'{youtube.video_id}.mp4')
+        # Set response headers for video content
+        headers = {
+            'Content-Type': 'video/mp4',
+            'Content-Disposition': f'attachment; filename={youtube.video_id}.mp4'
+        }
+
+        # Return the video content with headers
+        return send_file(video_data, mimetype='video/mp4', as_attachment=True, download_name=f'{youtube.video_id}.mp4', headers=headers)
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
