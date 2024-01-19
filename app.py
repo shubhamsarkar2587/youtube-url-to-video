@@ -34,7 +34,7 @@ def download_video():
         }
 
         # Return the video content with headers
-        return send_file(video_data, mimetype='video/mp4', as_attachment=True, download_name=f'{youtube.video_id}.mp4', headers=headers)
+        return send_file(video_data, mimetype='video/mp4', as_attachment=True, download_name=f'{youtube.video_id}.mp4', max_age=0)
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
