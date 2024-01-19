@@ -1,4 +1,5 @@
 from flask import Flask, request, send_file, jsonify
+from flask_cors import CORS
 from pytube import YouTube
 from io import BytesIO
 
