@@ -4,6 +4,7 @@ from pytube import YouTube
 from io import BytesIO
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/download', methods=['POST'])
 def download_video():
